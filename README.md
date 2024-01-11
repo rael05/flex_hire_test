@@ -6,11 +6,20 @@
 
 * BUNDLED WITH: 2.4.10
 
-* Database creation: You need an environment variable called FLEX_HIRE_TEST_DATABASE_PASSWORD which will be the password of the database user.
+* Environment variable:
+1. You need an environment variable called flexhire_url which will be the Developer API url of flexhire.
+2. You need an environment variable called flexhire_api_key which will be the api of the user.
 
-* How to run the test suite
+* after cloning the repository:
 
-* Services (job queues, cache servers, search engines, etc.):
+3. Run bundle install
 
-You need an environment variable called flexhire_url which will be the Developer API url of flexhire.
-You need an environment variable called flexhire_api_key which will be the api of the user.
+4. Make sure you have the pg gem configured correctly
+
+5. In postgresql create a new user called flex_hire_test, with the Attribute "Create DB" and uses the password of this user to create an environment variable called FLEX_HIRE_TEST_DATABASE_PASSWORD
+
+6. Run rails db:create
+
+7. Run rails s
+
+8. Go to your browser and enter localhost:3000/
