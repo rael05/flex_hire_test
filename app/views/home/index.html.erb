@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="col-3 pe-0">
+    <div class="card mb-3" style="width: 100%; min-height: 28rem;">
+      <img src="<%= @user_data.dig("avatarUrl") %>" class="img-thumbnail" alt="...">
+      <div class="card-body">
+        <h5 class="card-title text-center"><%= @user_data.dig("name")%></h5>
+        <div class="d-flex justify-content-center flex-wrap">
+          <% @user_skills.each do |skill| %>
+            <%
+              bg_color = "bg-primary"
+              bg_color = "bg-info text-dark" if skill.dig("experience") <= 2
+              bg_color = "bg-warning text-dark" if skill.dig("experience") > 2 && skill.dig("experience") <= 4
+            %>
+            <span class="badge rounded-pill <%= bg_color%> m-1"><%= skill.dig("skill").dig("name")%></span>
+          <% end %>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= @user_data.dig("email") %></li>
+        <li class="list-group-item"><%= [@user_data.dig("profile").dig("country").dig("name"), @user_data.dig("profile").dig("city")].join(" / ") %></li>
+        <li class="list-group-item"><%= @user_data.dig("phone") %></li>
+      </ul>
+      <div class="card-body">
+        <a href="<%= @user_data.dig("profile").dig("urlGithub") %>" class="card-link">Github</a>
+        <a href="<%= @user_data.dig("profile").dig("urlLinkedin") %>" class="card-link">Linkedin</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-9 mt-3">
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Opportunities</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Applied</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+        <div class="accordion" id="accordionPanelsStayOpenExample">
+          <% @user_opportunities.each_with_index do |opp, index| %>
+            <%= render partial: "jobs_section", locals: {opp: opp, index: "opp#{index}"} %>
+          <% end %>
+        </div>
+
+      </div>
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+
+      </div>
+    </div>
+  </div>
+</div>
